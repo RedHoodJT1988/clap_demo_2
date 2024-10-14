@@ -71,4 +71,30 @@ fn main() {
             )
         )
         .get_matches();
+
+    // Handle subcommands
+    match matches.subcommand() {
+        Some(("resize", sub_matches)) => {
+            // handle resize command
+            let input = sub_matches.get_one::<String>("input").expect("Input file is required!");
+            let output = sub_matches.get_one::<String>("output").expect("Output file is required!");
+            let width = sub_matches.get_one::<String>("width").expect("Width is required!");
+            let height = sub_matches.get_one::<String>("height").expect("Height is required!");
+            println!("Resizing image {} to {}x{} and saving to {}", input, width, height, output);
+
+            // Your resize logic would go here
+        }
+        Some(("convert", sub_matches)) => {
+            // handle convert command
+            let input = sub_matches.get_one::<String>("input").expect("Input file is required!");
+            let output = sub_matches.get_one::<String>("output").expect("Output file is required!");
+            let format = sub_matches.get_one::<String>("format").expect("Format is required!");
+            println!("Converting image {} to {} and saving to {}", input, format, output);
+
+            // Your convert logic would go here
+        }
+        _ => {
+            println!("No subcommand was used");
+        }
+    }
 }
